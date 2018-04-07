@@ -1,7 +1,6 @@
 enum Verb{
   write,
   put,
-  end_line,
   add,
   subtract,
   multiply,

@@ -55,7 +55,6 @@ Verb string_to_verb(std::string command){
 
   if(command == "write")              {  interpreted =  write;        }
   else if(command == "put")           {  interpreted =  put;          }
-  else if(command == "end-line")      {  interpreted =  end_line;     }
   else if(command == "add")           {  interpreted =  add;          }
   else if(command == "create")        {  interpreted =  create;       }
   else if(command == "set")           {  interpreted =  set;          }
@@ -77,7 +76,6 @@ bool valid_command(std::string command){
 
   if(command == "write")              {  status = true;   }
   else if(command == "put")           {  status = true;   }
-  else if(command == "end-line")      {  status = true;   }
   else if(command == "set")           {  status = true;   }
   else if(command == "create")        {  status = true;   }
   else if(command == "add")           {  status = true;   }

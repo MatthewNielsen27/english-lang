@@ -1,0 +1,11 @@
+create integer foo equal to 4
+
+create float bar equal to 1.234
+
+create variable name equal to "matthew"
+
+set bar equal to 4.321
+
+write foo to console
+write bar to console
+write name to console

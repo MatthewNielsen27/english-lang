@@ -1,0 +1,9 @@
+if 1 equals 2 then
+  write "true" to console
+end
+else-if 1 is-less-than 2 then
+  write "yolo" to console
+end
+else
+  write "false" to console
+end

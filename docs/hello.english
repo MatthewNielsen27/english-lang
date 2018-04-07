@@ -1,0 +1,8 @@
+write "hello world" to console
+
+put "hello " to console
+put "world" to console
+put line-break to console
+
+write "hello world" to data.txt
+

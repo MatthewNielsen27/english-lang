@@ -128,17 +128,19 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
     case(put):
       if(proper_write_clause(tokens)){
         if(tokens[3] == "console"){
+          std::string output = tokens[1] == "line-break" ? "std::endl" : tokens[1];
           output_file 
             << "std::cout<<"
-            << tokens[1]
+            << output
             << ";\n";
         }else{
+          std::string output = tokens[1] == "line-break" ? "std::endl" : tokens[1];
           output_file
             << "temp_out.open(\""
             << tokens[3]
             << "\", std::fstream::app);\n"
             << "temp_out<<"
-            << tokens[1]
+            << output
             << ";\n"
             << "temp_out.close();\n";
         }
@@ -163,6 +165,11 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
               << "std::string "
               << tokens[2]
               << " = \"\";";
+          }else if(tokens[1] == "variable"){
+            output_file
+              << "auto "
+              << tokens[2]
+              << ";\n";
           }else if(tokens[1] == "integer-list"){
             output_file
               << "std::vector<int> "
@@ -187,6 +194,13 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
           }else if(tokens[1] == "string"){
             output_file 
               << "std::string "
+              << tokens[2]
+              << " = "
+              << tokens[5]
+              << ";\n";
+          }else if(tokens[1] == "variable"){
+            output_file 
+              << "auto "
               << tokens[2]
               << " = "
               << tokens[5]
@@ -294,14 +308,6 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
       if(proper_end_clause(tokens)){
         output_file
           << "}\n";
-      }else{
-        std::cout<<"@English_Error: improper end clause"<<std::endl;
-      }
-      break;
-    case(end_line):
-      if(proper_end_clause(tokens)){
-        output_file
-          << "std::cout<<std::endl;\n";
       }else{
         std::cout<<"@English_Error: improper end clause"<<std::endl;
       }

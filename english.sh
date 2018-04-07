@@ -6,6 +6,7 @@ if [ $1 == "compile" ]; then
   FILE=$2
   BASE=${FILE%.*}
   g++ ${BASE}.cpp -o ${BASE}
+  rm ${BASE}.cpp
 fi
 
 #Run executable
