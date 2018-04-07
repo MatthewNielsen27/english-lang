@@ -1,9 +1,7 @@
 #include <iostream>
-#include <algorithm>
 #include <fstream>
 #include <string>
 #include <vector>
-#include <regex>
 #include "../include/input_parse_en.hpp"
 #include "../include/process_en.hpp"
 
@@ -30,11 +28,21 @@ int main(const int argc, const char *argv[]){
 
   //Start the output file
   std::string destination_file = source_file.substr(0, source_file.find(".english")) + ".cpp";
+
   std::ofstream output_file;
   output_file.open(destination_file);
-  output_file << "//English lang compiler version 1.0\n";
-  output_file << "#include <iostream>\n#include <fstream>\n int main(){\n";
+
+  //Write hash includes and start main function
+  output_file 
+    << "//English lang compiler version 1.0\n"
+    << "#include <iostream>\n"
+    << "#include <string>\n"
+    << "#include <fstream>\n"
+    << "#include <float.h>\n\n"
+    << "int main(){\n"
+    << "std::ofstream temp_out;\n";
   output_file.close();
+
   std::string incoming_line;
   size_t line_count = 0;
 
@@ -43,12 +51,13 @@ int main(const int argc, const char *argv[]){
   {
       line_count++;
       getline( input_file, incoming_line );
-      std::vector<std::string> tokens = tokenize(incoming_line);
+      std::vector<std::string> tokens = manual_token(incoming_line);
 
       if(valid_command(tokens[0])){
         process_tokens(tokens, destination_file);
-      }else{
-        std::cerr<<"@English_Error: improper structure on line "<<line_count<<std::endl;
+      }else if(tokens[0].length() > 0){
+        std::cerr<<"@English_Error: improper statement: "<<tokens[0]<<std::endl;
+        std::cerr<<"@English_Error: on line "<<line_count<<std::endl;
       }
   }
 

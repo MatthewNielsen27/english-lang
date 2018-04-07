@@ -7,5 +7,6 @@ Verb string_to_verb(std::string command);
 Identifier string_to_identifier(std::string command);
 
 std::vector<std::string> tokenize(std::string input);
+std::vector<std::string> manual_token(std::string input);
 
 bool valid_command(std::string command);

@@ -1,2 +1,6 @@
-write "hello world" to data.txt
-write "hello world" to console
+create integer foo equal to 4
+create integer bar equal to foo
+create string matthew equal to "dave"
+write matthew to console
+write foo to console
+write bar to console
