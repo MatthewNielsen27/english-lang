@@ -1,0 +1,10 @@
+write "hello world" to console 
+write "hello world" to greeting.txt
+
+create integer foo                            -> int foo;
+set foo to 4                                  -> foo = 4;
+add 3 to foo                                  -> foo += 3;
+
+if foo equals 4 then                          -> if(foo == 4){
+  write "hello world" to console              -> std::cout<<"hello world"<<std::endl
+end                                           -> }
