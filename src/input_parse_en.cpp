@@ -1,19 +1,6 @@
 #include <regex>
 #include "../include/input_parse_en.hpp"
 #include <iostream>
-Verb string_to_verb(std::string command){
-  Verb interpreted = unknown_verb;
-
-  std::transform(command.begin(), command.end(), command.begin(), ::tolower);
-
-  if(command == "write")        {  interpreted =  write; }
-  else if(command == "add")     {  interpreted =  add;   }
-  else if(command == "if")     {  interpreted =  conditional;   }
-  else if(command == "create")     {  interpreted =  create;   }
-  else if(command == "set")     {  interpreted =  create;   }
-
-  return interpreted;
-}
 
 Identifier string_to_identifier(std::string command){
   Identifier interpreted = unknown_identifier;
@@ -26,85 +13,82 @@ Identifier string_to_identifier(std::string command){
   return interpreted;
 }
 
+//Function to convert string command to Verb enum
 std::vector<std::string> manual_token(std::string input){
-  input = std::regex_replace(input, std::regex("^ +| +$|( ) +"), "$1");
-  std::cout<<input<<std::endl;
-
   std::vector<std::string> tokens;
-
-  bool encapsulated = false;
   std::string temp = "";
+  bool encapsulated = false;
+  bool list = false;
+  input = std::regex_replace(input, std::regex("^ +| +$|( ) +"), "$1");
+
   for(int i = 0; input[i] != 0; i++){
-    
-    if(input[i] == 32 && !encapsulated){
-      tokens.push_back(temp);
+    if(input[i] == 32 && !encapsulated && !list){
+      if(temp != " "){
+        tokens.push_back(temp);
+      }
       temp = "";
     }else if(input[i] == 34){
-      if(encapsulated){
-        encapsulated = false;
-      }else{
-        encapsulated = true;
-      } 
+      encapsulated = !encapsulated;
+
       temp += input[i];
-    }else{
+    }else if(input[i] == 123){
+      list = true;
+      temp += input[i];
+    }else if(input[i] == 125){
+      list = false;
+      temp += input[i];
+    }
+    else{
       temp+=input[i];
     }
   }
   tokens.push_back(temp);
-  for(int i = 0; i < tokens.size(); i++){
-     std::cout<<tokens[i]<<std::endl;
-  }
+
   return tokens;
 }
 
-std::vector<std::string> tokenize(std::string input){
-  input = std::regex_replace(input, std::regex("^ +| +$|( ) +"), "$1");
-  std::string buffer = input;
-  std::string buffer2;
-  std::vector<std::string> tokens;
+//Function to convert string command to Verb enum
+Verb string_to_verb(std::string command){
+  Verb interpreted = unknown_verb;
 
-  size_t index = 0;
-  int count = 0;
+  std::transform(command.begin(), command.end(), command.begin(), ::tolower);
 
-  std::string quote = "\"";
-  while(index != std::string::npos && buffer.length() != 0){
-    std::string temp;
-    index = 0;
-    if(buffer[0] != 34){
-      index = buffer.find(" ");
-      
-      temp = buffer.substr(0, index);
+  if(command == "write")              {  interpreted =  write;        }
+  else if(command == "put")           {  interpreted =  put;          }
+  else if(command == "end-line")      {  interpreted =  end_line;     }
+  else if(command == "add")           {  interpreted =  add;          }
+  else if(command == "create")        {  interpreted =  create;       }
+  else if(command == "set")           {  interpreted =  set;          }
+  else if(command == "subtract")      {  interpreted =  subtract;     }
+  else if(command == "multiply")      {  interpreted =  multiply;     }
+  else if(command == "divide")        {  interpreted =  divide;       }
+  else if(command == "if")            {  interpreted =  if_cond;      }
+  else if(command == "else-if")       {  interpreted =  elseif_cond;  }
+  else if(command == "else")          {  interpreted =  else_cond;    }
+  else if(command == "end")           {  interpreted =  end_cond;     }
+  else if(command == "for")           {  interpreted =  for_loop;     }
 
-      buffer = buffer.substr(index + 1);
-      
-      if(temp != " "){
-        tokens.push_back(temp);
-      }
-    }else if(buffer[0] == 34){
-      buffer2 = buffer.substr(1);
-      
-      index = buffer2.find("\"");
-
-      if(index != std::string::npos){
-        temp = buffer.substr(0, index + 2);
-
-        buffer = buffer.substr(index + 3);
-        
-        if(temp != " "){
-          tokens.push_back(temp);
-        }
-      }
-    }
-  }
-  return tokens;
+  return interpreted;
 }
 
+//Function to determine if a command is suported
 bool valid_command(std::string command){
   bool status = false;
-  if(command == "write")        {  status = true; }
-  else if(command == "add")     {  status = true;   }
-  else if(command == "if")      {  status = true;   }
-  else if(command == "set")     {  status = true;   }
-  else if(command == "create")  {  status = true;   }
+
+  if(command == "write")              {  status = true;   }
+  else if(command == "put")           {  status = true;   }
+  else if(command == "end-line")      {  status = true;   }
+  else if(command == "set")           {  status = true;   }
+  else if(command == "create")        {  status = true;   }
+  else if(command == "add")           {  status = true;   }
+  else if(command == "subtract")      {  status = true;   }
+  else if(command == "multiply")      {  status = true;   }
+  else if(command == "divide")        {  status = true;   }
+  else if(command == "if")            {  status = true;   }
+  else if(command == "else-if")       {  status = true;   }
+  else if(command == "else")          {  status = true;   }
+  else if(command == "end")           {  status = true;   }
+  else if(command == "for")           {  status = true;   }
+
   return status;
 }

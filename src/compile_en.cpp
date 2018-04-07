@@ -36,6 +36,7 @@ int main(const int argc, const char *argv[]){
   output_file 
     << "//English lang compiler version 1.0\n"
     << "#include <iostream>\n"
+    << "#include <vector>\n"
     << "#include <string>\n"
     << "#include <fstream>\n"
     << "#include <float.h>\n\n"

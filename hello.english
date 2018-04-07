@@ -1,6 +1,19 @@
-create integer foo equal to 4
-create integer bar equal to foo
-create string matthew equal to "dave"
-write matthew to console
-write foo to console
-write bar to console
+if 1 equals 2 then
+  write "true" to console
+end
+
+else-if 1 is-less-than 2 then
+  write "yolo" to console
+end
+
+else
+  write "false" to console
+end
+
+for x in 3 interations do
+  put x to console
+end
+end-line
+
+create integer-list numbers equal to { 1 , 2 , 3 , 4}
+write numbers[2] to console
