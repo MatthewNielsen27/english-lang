@@ -1,7 +1,8 @@
 compile
 *.txt
-docs/conditional
-docs/for_loop
-docs/func
-docs/hello
-docs/variables
+examples/conditional
+examples/for_loop
+examples/func
+examples/hello
+examples/variables
+examples/*.cpp
