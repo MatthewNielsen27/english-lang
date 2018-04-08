@@ -1,3 +1,6 @@
+#ifndef TYPES_EN_HPP
+#define TYPES_EN_HPP
+
 enum Verb{
   write,
   perform,
@@ -20,3 +23,5 @@ enum Verb{
   unknown_verb};
 
 enum Identifier{ to, equals, unknown_identifier };
+
+#endif
