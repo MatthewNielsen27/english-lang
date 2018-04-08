@@ -96,11 +96,17 @@ bool proper_for_loop_clause(std::vector<std::string> tokens){
   }else return true;
 }
 
+bool proper_perform_clause(std::vector<std::string> tokens){
+  if(tokens.size() != 2){
+    return false;
+  }else return true;
+}
+
 void process_tokens(std::vector<std::string> tokens, std::string output_file_name){
   Verb action = string_to_verb(tokens[0]);
 
   std::ofstream output_file;
-  std::cout<<"Analyzing token "<<action<<std::endl;
+  // std::cout<<"Analyzing token "<<action<<std::endl;
   output_file.open(output_file_name, std::fstream::app);
 
   switch(action){
@@ -328,6 +334,15 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
         std::cout<<"@English_Error: improper for-loop clause"<<std::endl;
       }
       break;
+    case(perform):
+      if(proper_perform_clause(tokens)){
+        output_file
+          << tokens[1]
+          << ";\n";
+      }else{
+        std::cout<<"@English_Error: improper for-loop clause"<<std::endl;
+      }
+      break;      
     case(unknown_verb):
       std::cout<<"@English_Error: unknown clause found"<<std::endl;
   }

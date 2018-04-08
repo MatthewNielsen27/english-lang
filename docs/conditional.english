@@ -1,3 +1,4 @@
+@main
 if 1 equals 2 then
   write "true" to console
 end

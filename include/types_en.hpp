@@ -1,5 +1,10 @@
 enum Verb{
   write,
+  perform,
+  function,
+  returns,
+  takes,
+  does_cond,
   put,
   add,
   subtract,

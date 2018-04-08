@@ -2,6 +2,7 @@
 #include "../include/input_parse_en.hpp"
 #include <iostream>
 
+//Function to convert string command to Identifier enum
 Identifier string_to_identifier(std::string command){
   Identifier interpreted = unknown_identifier;
 
@@ -13,7 +14,7 @@ Identifier string_to_identifier(std::string command){
   return interpreted;
 }
 
-//Function to convert string command to Verb enum
+//Function to convert string into seperate tokens
 std::vector<std::string> manual_token(std::string input){
   std::vector<std::string> tokens;
   std::string temp = "";
@@ -31,11 +32,13 @@ std::vector<std::string> manual_token(std::string input){
       encapsulated = !encapsulated;
 
       temp += input[i];
-    }else if(input[i] == 123){
+    }else if(input[i] == 123 || input[i] == 40){
       list = true;
+
       temp += input[i];
-    }else if(input[i] == 125){
+    }else if(input[i] == 125 || input[i] == 41){
       list = false;
+
       temp += input[i];
     }
     else{
@@ -66,6 +69,10 @@ Verb string_to_verb(std::string command){
   else if(command == "else")          {  interpreted =  else_cond;    }
   else if(command == "end")           {  interpreted =  end_cond;     }
   else if(command == "for")           {  interpreted =  for_loop;     }
+  else if(command == "function")      {  interpreted =  function;     }
+  else if(command == "returns")       {  interpreted =  returns;      }
+  else if(command == "does")          {  interpreted =  does_cond;    }
+  else if(command == "perform")          {  interpreted =  perform;    }
 
   return interpreted;
 }
@@ -87,6 +94,11 @@ bool valid_command(std::string command){
   else if(command == "else")          {  status = true;   }
   else if(command == "end")           {  status = true;   }
   else if(command == "for")           {  status = true;   }
+  else if(command == "function")      {  status = true;   }
+  else if(command == "takes")         {  status = true;   }
+  else if(command == "returns")       {  status = true;   }
+  else if(command == "does")          {  status = true;   }
+  else if(command == "perform")       {  status = true;   }
 
   return status;
 }

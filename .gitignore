@@ -1,4 +1,7 @@
 compile
-hello
-hello.cpp
 *.txt
+docs/conditional
+docs/for_loop
+docs/func
+docs/hello
+docs/variables

@@ -1,0 +1,12 @@
+@functions
+
+function greet
+  takes nothing
+  returns nothing
+does
+  write "hello world" to console
+end
+
+@main
+
+perform greet()
