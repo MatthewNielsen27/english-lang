@@ -32,7 +32,7 @@ if [ $1 == "compile" ]; then
   else
     echo -e "${NC}@English_error - ${RED}Interpretation failed"
   fi
-  rm ${BASE}.cpp
+  #rm ${BASE}.cpp
 fi
 
 #Run executable
@@ -44,6 +44,6 @@ fi
 
 #Help script
 if [ $1 == "help" ]; then
-  echo "./english.sh compile filename.english"
-  echo "./english.sh run filename.english"
+  echo -e "${GREEN}english compile ${NC}filename.english"
+  echo -e "${GREEN}english run ${NC}filename.english"
 fi

@@ -16,7 +16,7 @@ end
 
 put line-break to console
 
-create integer index equal to 1000
+create integer index equal to 1000000
 
 write "--counting down on seperate lines--" to console
 for x in index interations do

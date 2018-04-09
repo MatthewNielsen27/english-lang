@@ -116,7 +116,7 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
           output_file 
             << "std::cout<<"
             << tokens[1]
-            << "<<std::endl;\n";
+            << "<<\"\\n\";\n";
         }else{
           output_file
             << "temp_out.open(\""
@@ -124,11 +124,11 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
             << "\", std::fstream::app);\n"
             << "temp_out<<"
             << tokens[1]
-            << "<<std::endl;\n"
+            << "<<\"\\n\";\n"
             << "temp_out.close();\n";
         }
       }else{
-        std::cout<<"@English_Error: improper write clause"<<std::endl;
+        std::cout<<"@English_Error: improper write clause\n";
       }
       break;
     case(put):
@@ -151,7 +151,7 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
             << "temp_out.close();\n";
         }
       }else{
-        std::cout<<"@English_Error: improper write clause"<<std::endl;
+        std::cout<<"@English_Error: improper write clause\n";
       }
       break;
     case(create):
@@ -220,7 +220,7 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
               << ";\n";
           }
       }else{
-        std::cout<<"@English_Error: improper create clause"<<std::endl;
+        std::cout<<"@English_Error: improper create clause\n";
       }
       break;
     case(set):
@@ -231,7 +231,7 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
           << tokens[4]
           << ";\n";
       }else{
-        std::cout<<"@English_Error: improper set clause"<<std::endl;
+        std::cout<<"@English_Error: improper set clause\n";
       }
       break;
     case(add):
@@ -242,7 +242,7 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
           << tokens[3]
           << ";\n";
       }else{
-        std::cout<<"@English_Error: improper add clause"<<std::endl;
+        std::cout<<"@English_Error: improper add clause\n";
       }
       break;
     case(subtract):
@@ -253,7 +253,7 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
           << tokens[3]
           << ";\n";
       }else{
-        std::cout<<"@English_Error: improper subtract clause"<<std::endl;
+        std::cout<<"@English_Error: improper subtract clause\n";
       }
       break;
     case(multiply):
@@ -264,7 +264,7 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
           << tokens[3]
           << ";\n";
       }else{
-        std::cout<<"@English_Error: improper multiply clause"<<std::endl;
+        std::cout<<"@English_Error: improper multiply clause\n";
       }
       break;
     case(divide):
@@ -275,7 +275,7 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
           << tokens[3]
           << ";\n";
       }else{
-        std::cout<<"@English_Error: improper divide clause"<<std::endl;
+        std::cout<<"@English_Error: improper divide clause\n";
       }
       break;
     case(if_cond):
@@ -287,7 +287,7 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
           << tokens[3]
           << "){\n";
       }else{
-        std::cout<<"@English_Error: improper if clause"<<std::endl;
+        std::cout<<"@English_Error: improper if clause\n";
       }
       break;
     case(elseif_cond):
@@ -299,7 +299,7 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
           << tokens[3]
           << "){\n";
       }else{
-        std::cout<<"@English_Error: improper else-if clause"<<std::endl;
+        std::cout<<"@English_Error: improper else-if clause\n";
       }
       break;
     case(else_cond):
@@ -307,7 +307,7 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
         output_file
           << "else{\n";
       }else{
-        std::cout<<"@English_Error: improper else clause"<<std::endl;
+        std::cout<<"@English_Error: improper else clause\n";
       }
       break;
     case(end_cond):
@@ -315,7 +315,7 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
         output_file
           << "}\n";
       }else{
-        std::cout<<"@English_Error: improper end clause"<<std::endl;
+        std::cout<<"@English_Error: improper end clause\n";
       }
       break;
     case(for_loop):
@@ -331,7 +331,7 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
           << tokens[1]
           << "++){\n";
       }else{
-        std::cout<<"@English_Error: improper for-loop clause"<<std::endl;
+        std::cout<<"@English_Error: improper for-loop clause\n";
       }
       break;
     case(perform):
@@ -340,11 +340,11 @@ void process_tokens(std::vector<std::string> tokens, std::string output_file_nam
           << tokens[1]
           << ";\n";
       }else{
-        std::cout<<"@English_Error: improper for-loop clause"<<std::endl;
+        std::cout<<"@English_Error: improper for-loop clause\n";
       }
       break;      
     case(unknown_verb):
-      std::cout<<"@English_Error: unknown clause found"<<std::endl;
+      std::cout<<"@English_Error: unknown clause found\n";
   }
   output_file.close();
 }
