@@ -1,9 +1,5 @@
 @main
-# This is a comment
+
+# Writes "hello world" to the console
+
 write "hello world" to console
-# This is another comment
-
-
-
-
-# This is a comment down here

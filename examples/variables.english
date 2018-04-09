@@ -1,12 +1,11 @@
 @main
+
 create integer foo equal to 4
 
-create float bar equal to 1.234
+create integer-list bar equal to {1,2,3,4}
 
 create variable name equal to "matthew"
 
-set bar equal to foo
-
 write foo to console
-write bar to console
+write bar[1] to console
 write name to console

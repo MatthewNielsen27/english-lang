@@ -32,7 +32,7 @@ if [ $1 == "compile" ]; then
   else
     echo -e "${NC}@English_error - ${RED}Interpretation failed"
   fi
-  #rm ${BASE}.cpp
+  rm ${BASE}.cpp
 fi
 
 #Run executable

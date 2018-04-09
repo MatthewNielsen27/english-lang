@@ -1,3 +1,10 @@
+//////////////////////////////////////
+// English_lang compiler            //
+// Written by: matthew nielsen      //
+// Start:                           //
+// Last edit:                       //
+//////////////////////////////////////
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -18,7 +25,6 @@ bool valid_function(
   std::vector<std::string> returns, 
   std::vector<std::string> does)
 {
-  bool state = true;
   if(name[0] != "function" || (name[1] == " " || name[1] == "")){
     std::cerr<<"@English_Error: improper function name\n";
     return false;

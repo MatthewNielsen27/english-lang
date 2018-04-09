@@ -4,25 +4,71 @@ English is an experiment to create the highest-level programming language possib
 
 ## Sample syntax
 
+### Console output
+
 ```txt
-write "hello world" to data.txt
+@main
+
 write "hello world" to console
 ```
 
-## Setup 
+### Variables
 
-Run the setup script
+```txt
+@main
 
-```console
-./setup.sh
+# Static-typed
+create integer foo equal to 4
+create integer bar equal to 0
+
+set bar to equal foo
+
+# Dynamic-typed
+create variable name equal to "matthew"
+
+put "hello, " to console
+write name to console
+
 ```
+
+### Loops
+
+```txt
+@main
+
+create variable name equal to "matthew"
+
+for x in name.length() interations do
+  put name[x] to console
+end
+```
+
+### Functions
+
+```txt
+@functions
+
+function greet
+  takes nothing
+  returns nothing
+does
+  write "hello world" to console
+end
+
+@main
+
+perform greet()
+```
+
+click [here](examples) to see more examples of .english programming
 
 ## Usage
 
 Create hello.english source file
 
 ```txt
-write "hello world" to data.txt
+@main
+
 write "hello world" to console
 ```
 
@@ -33,11 +79,16 @@ $./english compile hello.english
 
 $./english run hello.english
 hello world
-
 ```
 
-In data.txt you will find the following text
+## Setup
 
-```txt
-hello world
+Run the setup script
+
+```console
+./setup.sh
 ```
+
+## Author(s)
+
+* Matthew Nielsen

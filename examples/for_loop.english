@@ -1,5 +1,7 @@
 @main
+
 write "--counting up on one line--" to console
+
 for counter in 10 interations do
   put counter to console
   put " " to console
@@ -16,7 +18,7 @@ end
 
 put line-break to console
 
-create integer index equal to 1000000
+create integer index equal to 10
 
 write "--counting down on seperate lines--" to console
 for x in index interations do
