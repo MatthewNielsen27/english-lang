@@ -125,3 +125,36 @@ bool CreateStatement::write(std::vector<std::string> tokens, std::ofstream& outf
   }
   return true;
 }
+
+bool SetStatement::is_valid(std::string line){
+  return true;
+}
+
+std::vector<std::string> SetStatement::parse(std::string line){
+  std::vector<std::string> tokens;
+
+  line = std::regex_replace(line, std::regex("^ +| +$|( ) +"), "$1");
+
+  //remove 'if' and ', then' statement
+  size_t index;
+
+  line = line.substr(4);
+
+  index = line.find(" ");
+
+  tokens.push_back(line.substr(0, index));
+
+  index = line.find("to");
+  tokens.push_back(line.substr(index + 3)); 
+
+  return tokens;
+}
+
+bool SetStatement::write(std::vector<std::string> tokens, std::ofstream& outfile){
+  outfile
+  << tokens[0]
+  << " = "
+  << tokens[1]
+  << ";\n";
+  return true;
+}

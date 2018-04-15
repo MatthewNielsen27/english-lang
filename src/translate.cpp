@@ -22,7 +22,9 @@ enum CommandType{
   _does,
   _end,
   _close,
-  _append
+  _append,
+  _for,
+  _while
 };
 
 CommandType translate(std::string const& inString){
@@ -43,6 +45,8 @@ CommandType translate(std::string const& inString){
   else if(inString == "returns") { val = _returns;}
   else if(inString == "does") { val = _does;}
   else if(inString == "end") { val = _end;}
+  else if(inString == "for") { val = _for;}
+  else if(inString == "while") { val = _while;}
   return val;
 }
 
@@ -134,6 +138,33 @@ int translate_command_from(std::string initial_token, std::string line, std::ofs
       if(close_statement.is_valid(line)){
         std::string filename = close_statement.parse(line);
         close_statement.write(filename, outfile);
+      }else{
+        status = 1;
+      }
+      break;
+    case(_while):
+      WhileStatement while_statement;
+      if(while_statement.is_valid(line)){
+        std::string cond = while_statement.parse(line);
+        while_statement.write(cond, outfile);
+      }else{
+        status = 1;
+      }
+      break;
+    case(_for):
+      ForStatement for_statement;
+      if(for_statement.is_valid(line)){
+        std::vector<std::string> tokens = for_statement.parse(line);
+        for_statement.write(tokens, outfile);
+      }else{
+        status = 1;
+      }
+      break;
+    case(_set):
+      SetStatement set_statement;
+      if(set_statement.is_valid(line)){
+        std::vector<std::string> tokens = set_statement.parse(line);
+        set_statement.write(tokens, outfile);
       }else{
         status = 1;
       }

@@ -159,3 +159,65 @@ bool EndStatement::write(std::ofstream& outfile){
 
   return true;
 }
+
+bool WhileStatement::is_valid(std::string incoming){
+  return true;
+}
+
+bool WhileStatement::write(std::string incoming, std::ofstream& outfile){
+  outfile 
+  << "while("
+  << incoming
+  << "){\n";
+
+  return true;
+}
+
+std::string WhileStatement::parse(std::string line){
+  std::vector<std::string> tokens;
+
+  size_t index;
+  line = line.substr(6);
+  index = line.find(",");
+  line = line.substr(0, index);
+  
+  return line;
+}
+
+bool ForStatement::is_valid(std::string incoming){
+  return true;
+}
+
+bool ForStatement::write(std::vector<std::string> incoming, std::ofstream& outfile){
+  outfile 
+    << "for( int "
+    << incoming[0]
+    << " = 0; "
+    << incoming[0]
+    << " < "
+    << incoming[1]
+    << "; "
+    << incoming[0]
+    << "++){\n";
+  return true;
+}
+
+std::vector<std::string> ForStatement::parse(std::string line){
+  std::vector<std::string> tokens;
+
+  line = std::regex_replace(line, std::regex("^ +| +$|( ) +"), "$1");
+
+  size_t index;
+  line = line.substr(4);
+  index = line.find(" in");
+
+  tokens.push_back(line.substr(0, index));
+
+  line = line.substr(index + 4);
+
+  index = line.find(" ");
+
+  tokens.push_back(line.substr(0, index));
+  
+  return tokens;
+}

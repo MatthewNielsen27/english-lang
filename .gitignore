@@ -1,7 +1,7 @@
 compile
 *.txt
 examples/conditional
-examples/for_loop
+examples/loop
 examples/func
 examples/hello
 examples/variables
