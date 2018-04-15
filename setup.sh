@@ -1,2 +1,2 @@
-chmod u+x english.sh
+chmod u+x engli.sh
 make

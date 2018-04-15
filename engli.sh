@@ -15,22 +15,22 @@ if [ $1 == "compile" ]; then
     echo -e "${NC}@English - ${GREEN}Interpretation complete"
     FILE=$2
     BASE=${FILE%.*}
-    g++ ${BASE}.cpp -o ${BASE}
+    g++ ${BASE}.cpp -o ${BASE} -std=c++11
     RESULT=$?
 
     # If the compilation succeded
     if [ $RESULT -eq 0 ]; then
-      echo -e "${NC}@English - ${GREEN}Compilation complete"
-      echo -e "${NC}@English - To run use ${PURPLE}english ${LPURPLE}run ${NC}$2"
+      echo -e "${NC}@Plain-English: ${GREEN}Compilation complete"
+      echo -e "${NC}@Plain-English: To run use ${PURPLE}english ${LPURPLE}run ${NC}$2"
 
     # If the compilation failed
     else
-      echo -e "${NC}@English_error - ${RED}Compilation failed, see errors above"
+      echo -e "${NC}@Plain-English: Error: ${RED}Compilation failed, see errors above"
     fi
 
   # if the interpretation failed
   else
-    echo -e "${NC}@English_error - ${RED}Interpretation failed"
+    echo -e "${NC}@Plain-English: Error: ${RED}Interpretation failed"
   fi
   rm ${BASE}.cpp
 fi

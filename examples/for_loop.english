@@ -1,4 +1,4 @@
-@main
+@script
 
 write "--counting up on one line--" to console
 

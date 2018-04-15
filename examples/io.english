@@ -1,0 +1,15 @@
+@script
+
+create output-filestream named logger
+
+open data.txt using logger
+
+put "hello " to logger
+
+close logger
+
+append data.txt using logger
+
+write "world" to logger
+
+close logger
