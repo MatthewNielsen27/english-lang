@@ -38,6 +38,13 @@ class EndStatement{
   bool write(std::ofstream& outfile);
 };
 
+class DoesStatement{
+  public:
+  bool is_valid(std::string incoming);
+
+  bool write(std::ofstream& outfile);
+};
+
 class ForStatement{
   public:
   bool is_valid(std::string incoming);

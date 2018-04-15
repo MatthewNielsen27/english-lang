@@ -3,7 +3,7 @@
 #include "../include/io.hpp"
 #include "../include/native.hpp"
 #include "../include/variables.hpp"
-
+#include "../include/function.hpp"
 
 #include <vector>
 
@@ -54,7 +54,7 @@ CommandType translate(std::string const& inString){
   return val;
 }
 
-int translate_command_from(std::string initial_token, std::string line, std::ofstream& outfile){
+int translate_command_from(std::string initial_token, std::string line, std::ofstream& outfile, std::ifstream& infile){
   CommandType identifier = translate(initial_token);
   int status = 0;
   switch(identifier){
@@ -80,6 +80,14 @@ int translate_command_from(std::string initial_token, std::string line, std::ofs
       ElseStatement else_statement;
       if(else_statement.is_valid(line)){
         else_statement.write(outfile);
+      }else{
+        status = 1;
+      }
+      break;
+    case(_does):
+      DoesStatement does_statement;
+      if(does_statement.is_valid(line)){
+        does_statement.write(outfile);
       }else{
         status = 1;
       }
@@ -178,6 +186,15 @@ int translate_command_from(std::string initial_token, std::string line, std::ofs
       if(inject_statement.is_valid(line)){
         std::string native_command = inject_statement.parse(line);
         inject_statement.write(native_command, outfile);
+      }else{
+        status = 1;
+      }
+      break;
+    case(_function):
+      FunctionStatement function_statement;
+      if(function_statement.is_valid(line)){
+        std::vector<std::string> tokens = function_statement.parse(line, infile);
+        function_statement.write(tokens, outfile);
       }else{
         status = 1;
       }

@@ -8,3 +8,4 @@ examples/hello
 examples/variables
 examples/*.cpp
 examples/io
+examples/function

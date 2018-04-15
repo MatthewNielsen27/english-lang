@@ -221,3 +221,13 @@ std::vector<std::string> ForStatement::parse(std::string line){
   
   return tokens;
 }
+
+bool DoesStatement::is_valid(std::string incoming){
+  return true;
+}
+
+bool DoesStatement::write(std::ofstream& outfile){
+  outfile << "{\n";
+
+  return true;
+}

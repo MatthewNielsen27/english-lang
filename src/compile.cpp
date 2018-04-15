@@ -109,7 +109,7 @@ int main(const int argc, const char *argv[]){
       }else if(token == "@routines"){
         routines_reached = true;
       }else{
-        translate_command_from(token, incoming_line, outfile);
+        translate_command_from(token, incoming_line, outfile, input_file);
       }
     }else{
       std::cout << "@Plain_English: Error: Unknown command on line " << line_count << "\n";

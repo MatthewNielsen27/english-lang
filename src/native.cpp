@@ -15,4 +15,5 @@ bool InjectStatement::write(std::string native_commands, std::ofstream& outfile)
   outfile
     << native_commands
     << "\n";
+  return true;
 }
