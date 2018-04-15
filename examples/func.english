@@ -1,12 +1,48 @@
-@functions
+@routines
 
 function greet
-  takes nothing
+  takes string:name integer:age
   returns nothing
 does
-  write "hello world" to console
+  put name to console
+  put ", aged " to console
+  write age to console
 end
 
-@main
+function _factorial
+  takes integer:val integer:count
+  returns nothing
+does
+  if count equals 0 then
+    write val to console
+  end
+  else
+    perform _factorial(val * count, count - 1)
+  end
+end
 
-perform greet()
+function factorial
+  takes integer:val
+  returns nothing
+does
+  perform _factorial(val, val - 1)
+end
+
+function fib
+  takes integer:n
+  return integer
+does
+  if n equals 0 then
+    return 0
+  end
+  else-if n equals 1 then
+    return 1
+  end
+  else
+    return fib(n - 1) + fib(n - 1)
+  end
+end
+
+@script
+
+perform factorial( 4 )

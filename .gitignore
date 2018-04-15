@@ -6,3 +6,4 @@ examples/func
 examples/hello
 examples/variables
 examples/*.cpp
+examples/io

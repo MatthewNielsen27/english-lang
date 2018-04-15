@@ -1,12 +1,12 @@
 CC=g++
-CFLAGS=-I.
+CFLAGS=-I. -std=c++11
 
 #All source files used by main test file
-_SRC = input_parse_en.cpp process_en.cpp function_en.cpp
+_SRC = translate.cpp filestructure.cpp control_flow.cpp io.cpp variables.cpp
 SRC= $(patsubst %,src/%,$(_SRC))
 
 #Name of main test file
-MAIN = src/compile_en.cpp
+MAIN = src/compile.cpp
 
 compile: $(MAIN) $(SRC)
 	g++ -o $@ $^ $(CFLAGS)

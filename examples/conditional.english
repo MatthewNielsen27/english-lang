@@ -1,11 +1,11 @@
-@main
+@script
 
-if 1 equals 2 then
-  write "true" to console
+if 1 == 2, then
+  write "if" to console
 end
-else-if 1 is-less-than 2 then
-  write "true" to console
+or if 3 >= 2, then
+  write "or" to console
 end
 else
-  write "false" to console
+  write "else" to console
 end
