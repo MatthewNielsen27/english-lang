@@ -2,6 +2,7 @@ compile
 *.txt
 examples/conditional
 examples/loop
+examples/broken
 examples/func
 examples/hello
 examples/variables

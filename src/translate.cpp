@@ -1,12 +1,15 @@
 #include "../include/translate.hpp"
 #include "../include/control_flow.hpp"
 #include "../include/io.hpp"
+#include "../include/native.hpp"
 #include "../include/variables.hpp"
+
 
 #include <vector>
 
 enum CommandType{
   _undefiend,
+  _inject,
   _if,
   _or,
   _else,
@@ -47,6 +50,7 @@ CommandType translate(std::string const& inString){
   else if(inString == "end") { val = _end;}
   else if(inString == "for") { val = _for;}
   else if(inString == "while") { val = _while;}
+  else if(inString == "cpp->") {val = _inject;}
   return val;
 }
 
@@ -165,6 +169,15 @@ int translate_command_from(std::string initial_token, std::string line, std::ofs
       if(set_statement.is_valid(line)){
         std::vector<std::string> tokens = set_statement.parse(line);
         set_statement.write(tokens, outfile);
+      }else{
+        status = 1;
+      }
+      break;
+    case(_inject):
+      InjectStatement inject_statement;
+      if(inject_statement.is_valid(line)){
+        std::string native_command = inject_statement.parse(line);
+        inject_statement.write(native_command, outfile);
       }else{
         status = 1;
       }

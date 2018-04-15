@@ -1,0 +1,5 @@
+@script
+
+cpp-> int foo = 12;
+
+write foo to console
