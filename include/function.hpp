@@ -14,4 +14,14 @@ class FunctionStatement{
   bool write(std::vector<std::string> tokens, std::ofstream& outfile);
 };
 
+
+class ReturnStatement{
+  public:
+  bool is_valid(std::string line);
+
+  std::string parse(std::string line);
+
+  bool write(std::string native_commands, std::ofstream& outfile);
+};
+
 #endif

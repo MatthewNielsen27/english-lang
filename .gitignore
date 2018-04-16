@@ -9,3 +9,4 @@ examples/variables
 examples/*.cpp
 examples/io
 examples/function
+examples/outside

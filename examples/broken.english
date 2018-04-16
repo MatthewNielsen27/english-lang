@@ -2,4 +2,4 @@
 
 cpp-> int foo = 12;
 
-write foo to console
+write foo + 12 to-> console

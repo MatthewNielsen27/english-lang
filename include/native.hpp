@@ -13,4 +13,13 @@ class InjectStatement{
   bool write(std::string native_commands, std::ofstream& outfile);
 };
 
+class PerformStatement{
+  public:
+  bool is_valid(std::string line);
+
+  std::string parse(std::string line);
+
+  bool write(std::string native_commands, std::ofstream& outfile);
+};
+
 #endif

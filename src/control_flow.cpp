@@ -36,8 +36,6 @@ std::vector<std::string> IfStatement::parse(std::string line){
   //remove 'if' and ', then' statement
   size_t index;
   line = line.substr(3);
-  index = line.find(",");
-  line = line.substr(0, index);
   
   //trim any whitespace
   line = std::regex_replace(line, std::regex("^ +| +$|( ) +"), "$1");
@@ -45,14 +43,17 @@ std::vector<std::string> IfStatement::parse(std::string line){
   int encapsulated = 0;
 
   bool quoted = false;
+  bool found = false;
 
   std::string buffer = "";
 
-  for(int i = 0; line[i] != 0; i++){
-    if(line[i] == ' ' && !encapsulated && !quoted){
-        if(buffer.length() && buffer != " "){
-          tokens.push_back(buffer);
-        }
+  for(int i = 0; line[i] != 0 && !found; i++){
+    if(line[i] == ','&& !encapsulated && !quoted){
+      found = true;
+    }else if(line[i] == ' ' && !encapsulated && !quoted){
+      if(buffer.length() && buffer != " "){
+        tokens.push_back(buffer);
+      }
       buffer = "";
     }else if(line[i] == '"'){
       buffer += line[i];
@@ -97,11 +98,9 @@ bool OrStatement::write(std::vector<std::string> incoming, std::ofstream& outfil
 std::vector<std::string> OrStatement::parse(std::string line){
   std::vector<std::string> tokens;
 
-  //remove 'or' and ', then' statement
-  size_t index = line.find("if");
-  line = line.substr(index + 3);
-  index = line.find(",");
-  line = line.substr(0, index);
+  //remove 'if' and ', then' statement
+  size_t index;
+  line = line.substr(8);
   
   //trim any whitespace
   line = std::regex_replace(line, std::regex("^ +| +$|( ) +"), "$1");
@@ -109,11 +108,14 @@ std::vector<std::string> OrStatement::parse(std::string line){
   int encapsulated = 0;
 
   bool quoted = false;
+  bool found = false;
 
   std::string buffer = "";
 
-  for(int i = 0; line[i] != 0; i++){
-    if(line[i] == ' ' && !encapsulated && !quoted){
+  for(int i = 0; line[i] != 0 && !found; i++){
+    if(line[i] == ','&& !encapsulated && !quoted){
+      found = true;
+    }else if(line[i] == ' ' && !encapsulated && !quoted){
       if(buffer.length() && buffer != " "){
         tokens.push_back(buffer);
       }
@@ -178,7 +180,7 @@ std::string WhileStatement::parse(std::string line){
 
   size_t index;
   line = line.substr(6);
-  index = line.find(",");
+  index = line.find(", then");
   line = line.substr(0, index);
   
   return line;
@@ -209,7 +211,7 @@ std::vector<std::string> ForStatement::parse(std::string line){
 
   size_t index;
   line = line.substr(4);
-  index = line.find(" in");
+  index = line.find(" in ");
 
   tokens.push_back(line.substr(0, index));
 

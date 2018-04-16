@@ -83,3 +83,21 @@ bool FunctionStatement::write(std::vector<std::string> tokens, std::ofstream& ou
     << " )\n";
   return true;  
 }
+
+bool ReturnStatement::is_valid(std::string line){
+  return true;
+}
+
+std::string ReturnStatement::parse(std::string line){
+  line = std::regex_replace(line, std::regex("^ +| +$|( ) +"), "$1");
+  
+  return line.substr(7);
+}
+
+bool ReturnStatement::write(std::string native_commands, std::ofstream& outfile){
+  outfile
+    << "return "
+    << native_commands
+    << ";\n";
+  return true;
+}

@@ -1,21 +1,21 @@
 @script
 
-write "--for-loop counting up on one line--" to console
+write "--for-loop counting up on one line--" to-> console
 
-for counter in 10 interations, do
-  put counter to console
-  put " " to console
+for cinnter in 10 interations, do
+  put cinnter to-> console
+  put " " to-> console
 end
 
-write "" to console
+write "" to-> console
 
-create variable counter equal to 10
+create variable counter equal to-> 10
 
-write "--while-loop counting down on one line--" to console
+write "--while-loop counting down on one line--" to-> console
 while counter > 0, do
-  put counter to console
-  put " " to console
-  set counter equal to counter - 1
+  put counter to-> console
+  put " " to-> console
+  set counter equal to-> counter - 1
 end
 
-write "" to console
+write "" to-> console

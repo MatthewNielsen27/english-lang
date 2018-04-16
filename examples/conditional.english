@@ -1,11 +1,11 @@
 @script
 
-if 1 == 2, then
-  write "if" to console
+if ", then" == ", then", then
+  write "if" to-> console
 end
-or if 3 >= 2, then
-  write "or" to console
+else-if ", then" == ", then", then
+  write "or" to-> console
 end
 else
-  write "else" to console
+  write "else" to-> console
 end

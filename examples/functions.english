@@ -1,0 +1,26 @@
+function greet
+  takes: string name
+  returns: nothing
+does
+  put "Hello " to-> console
+  write name to-> console
+end
+
+function factorial_helper
+  takes: integer n, integer count
+  returns: integer
+does
+  if count == 0, then
+    return n
+  end
+  else
+    return factorial_helper(n * count, count - 1)
+  end
+end
+
+function factorial
+  takes: integer n
+  returns: integer
+does
+  return factorial_helper(n, n - 1)
+end

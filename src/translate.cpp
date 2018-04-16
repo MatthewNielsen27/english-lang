@@ -20,23 +20,22 @@ enum CommandType{
   _open,
   _set,
   _function,
-  _takes,
-  _returns,
   _does,
   _end,
   _close,
   _append,
   _for,
-  _while
+  _while,
+  _return
 };
 
 CommandType translate(std::string const& inString){
   CommandType val = _undefiend;
   if(inString == "if") { val = _if; }
-  else if(inString == "or") { val = _or;}
+  else if(inString == "else-if") { val = _or;}
   else if(inString == "else") { val = _else;}
   else if(inString == "create") { val = _create;}
-  else if(inString == "perform") { val = _write;}
+  else if(inString == "perform") { val = _perform;}
   else if(inString == "write") { val = _write;}
   else if(inString == "put") { val = _put;}
   else if(inString == "open") { val = _open;}
@@ -44,13 +43,12 @@ CommandType translate(std::string const& inString){
   else if(inString == "append") { val = _append;}
   else if(inString == "set") { val = _set;}
   else if(inString == "function") { val = _function;}
-  else if(inString == "takes") { val = _takes;}
-  else if(inString == "returns") { val = _returns;}
   else if(inString == "does") { val = _does;}
   else if(inString == "end") { val = _end;}
   else if(inString == "for") { val = _for;}
   else if(inString == "while") { val = _while;}
   else if(inString == "cpp->") {val = _inject;}
+  else if(inString == "return") {val = _return;}
   return val;
 }
 
@@ -186,6 +184,24 @@ int translate_command_from(std::string initial_token, std::string line, std::ofs
       if(inject_statement.is_valid(line)){
         std::string native_command = inject_statement.parse(line);
         inject_statement.write(native_command, outfile);
+      }else{
+        status = 1;
+      }
+      break;
+    case(_perform):
+      PerformStatement perform_statement;
+      if(perform_statement.is_valid(line)){
+        std::string native_command = perform_statement.parse(line);
+        perform_statement.write(native_command, outfile);
+      }else{
+        status = 1;
+      }
+      break;
+    case(_return):
+      ReturnStatement return_statement;
+      if(return_statement.is_valid(line)){
+        std::string native_command = return_statement.parse(line);
+        return_statement.write(native_command, outfile);
       }else{
         status = 1;
       }

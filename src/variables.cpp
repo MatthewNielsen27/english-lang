@@ -24,60 +24,19 @@ std::vector<std::string> CreateStatement::parse(std::string line){
   line = line.substr(index + 1);
 
   if(create_type == "input-filestream" || create_type == "output-filestream"){
-    index = line.find("named");
+    index = line.find(" named ");
 
-    tokens.push_back(line.substr(index + 6));
+    tokens.push_back(line.substr(index + 7));
 
   }else{
-    index = line.find("equal to");
+    index = line.find(" equal to-> ");
 
     tokens.push_back(line.substr(0, index));
 
-    line = line.substr(index + 8);
+    line = line.substr(index + 12);
 
-    //trim any whitespace
-
-    int encapsulated = 0;
-
-    bool quoted = false;
-
-    std::string buffer = "";
-
-    for(int i = 0; line[i] != 0; i++){
-      if(line[i] == ' ' && !encapsulated && !quoted){
-        if(buffer.length() && buffer != " "){
-          tokens.push_back(buffer);
-        }
-
-        buffer = "";
-
-      }else if(line[i] == '"'){
-        buffer += line[i];
-
-        quoted = !quoted;
-
-      }else if(line[i] == '('){
-        buffer += line[i];
-
-        encapsulated++;
-
-      }else if(line[i] == ')'){
-        buffer += line[i];
-
-        encapsulated--;
-
-      }else{
-        buffer += line[i];
-      }
-
-    }
-
-    if(buffer.length() && buffer != " "){
-      tokens.push_back(buffer);
-    }
-
+    tokens.push_back(line);
   }
-
   return tokens;
 }
 
@@ -144,8 +103,8 @@ std::vector<std::string> SetStatement::parse(std::string line){
 
   tokens.push_back(line.substr(0, index));
 
-  index = line.find("to");
-  tokens.push_back(line.substr(index + 3)); 
+  index = line.find(" equal to-> ");
+  tokens.push_back(line.substr(index + 12));
 
   return tokens;
 }
