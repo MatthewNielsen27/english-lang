@@ -56,7 +56,7 @@ std::string _to_type(std::string incoming){
     return "std::string ";
   }else if(incoming == "integer"){
     return "int ";
-  }else if(incoming == "number"){
+  }else if(incoming == "decimal"){
     return "float ";
   }else if(incoming == "input-filestream"){
     return "std::ifstream ";

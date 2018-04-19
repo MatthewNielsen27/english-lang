@@ -3,6 +3,35 @@ structure Person
   create integer age
 end-structure
 
+class-structure Bank_account
+  cpp-> public:
+  create string id
+  create decimal balance
+
+  constructor Bank_account
+    takes: decimal amount, string name
+  does
+    set balance equal to-> amount
+    set id equal to-> name
+  end
+
+  function income
+    takes: decimal amount
+    returns: bool
+  does
+    set balance equal to-> balance + amount
+    return true
+  end
+end-structure
+
 @script
 
 create Person bill
+
+create Bank_account account(100, "123")
+
+perform account.income(100)
+
+put account.id to-> console
+put ": " to-> console
+write account.balance to-> console

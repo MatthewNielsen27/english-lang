@@ -101,3 +101,4 @@ bool ReturnStatement::write(std::string native_commands, std::ofstream& outfile)
     << ";\n";
   return true;
 }
+

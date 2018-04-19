@@ -14,7 +14,7 @@ class StructureStatement{
   bool write(std::string name, std::ofstream& outfile);
 };
 
-class ClassStatement{
+class ClassStructureStatement{
   public:
   bool is_valid(std::string line);
 
@@ -23,11 +23,13 @@ class ClassStatement{
   bool write(std::string name, std::ofstream& outfile);
 };
 
-class ClassStructureStatement{
+class PrivacyStatement{
   public:
   bool is_valid(std::string line);
 
-  bool write(std::ofstream& outfile);
+  std::string parse(std::string line);
+
+  bool write(std::string name, std::ofstream& outfile);
 };
 
 class EndStructureStatement{
@@ -35,6 +37,15 @@ class EndStructureStatement{
   bool is_valid(std::string line);
 
   bool write(std::ofstream& outfile);
+};
+
+class ConstructorStatement{
+  public:
+  bool is_valid(std::string line);
+
+  std::vector<std::string> parse(std::string line, std::ifstream& infile);
+
+  bool write(std::vector<std::string> tokens, std::ofstream& outfile);
 };
 
 #endif

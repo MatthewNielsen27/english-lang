@@ -29,7 +29,10 @@ enum CommandType{
   _while,
   _return,
   _structure,
-  _end_structure
+  _class_structure,
+  _end_structure,
+  _privacy,
+  _constructor
 };
 
 CommandType translate(std::string const& inString){
@@ -53,7 +56,10 @@ CommandType translate(std::string const& inString){
   else if(inString == "cpp->") {val = _inject;}
   else if(inString == "return") {val = _return;}
   else if(inString == "structure") {val = _structure;}
+  else if(inString == "class-structure") {val = _class_structure;}
   else if(inString == "end-structure") {val = _end_structure;}
+  else if(inString == "privacy:") {val = _privacy;}
+  else if(inString == "constructor") {val = _constructor;}
   return val;
 }
 
@@ -229,10 +235,37 @@ int translate_command_from(std::string initial_token, std::string line, std::ofs
         status = 1;
       }
       break;
+    case(_class_structure):
+      ClassStructureStatement class_structure_statement;
+      if(class_structure_statement.is_valid(line)){
+        std::string name = class_structure_statement.parse(line);
+        class_structure_statement.write(name, outfile);
+      }else{
+        status = 1;
+      }
+      break;
+    case(_privacy):
+      PrivacyStatement privacy_statement;
+      if(class_structure_statement.is_valid(line)){
+        std::string name = class_structure_statement.parse(line);
+        class_structure_statement.write(name, outfile);
+      }else{
+        status = 1;
+      }
+      break;
     case(_end_structure):
       EndStructureStatement endstructure_statement;
       if(endstructure_statement.is_valid(line)){
         endstructure_statement.write(outfile);
+      }else{
+        status = 1;
+      }
+      break;
+    case(_constructor):
+      ConstructorStatement constructor_statement;
+      if(constructor_statement.is_valid(line)){
+        std::vector<std::string> tokens = constructor_statement.parse(line, infile);
+        constructor_statement.write(tokens, outfile);
       }else{
         status = 1;
       }
