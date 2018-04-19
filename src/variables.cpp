@@ -25,17 +25,20 @@ std::vector<std::string> CreateStatement::parse(std::string line){
 
   if(create_type == "input-filestream" || create_type == "output-filestream"){
     index = line.find(" named ");
-
-    tokens.push_back(line.substr(index + 7));
+    if(index != std::string::npos){
+      tokens.push_back(line.substr(index + 7));
+    }
 
   }else{
     index = line.find(" equal to-> ");
-
+    
     tokens.push_back(line.substr(0, index));
+    if(index != std::string::npos){
+      line = line.substr(index + 12);
 
-    line = line.substr(index + 12);
+      tokens.push_back(line);
+    }
 
-    tokens.push_back(line);
   }
   return tokens;
 }
@@ -48,38 +51,41 @@ bool is_of_normal_type(std::string incoming){
   }
 }
 
+std::string _to_type(std::string incoming){
+  if(incoming == "string"){
+    return "std::string ";
+  }else if(incoming == "integer"){
+    return "int ";
+  }else if(incoming == "number"){
+    return "float ";
+  }else if(incoming == "input-filestream"){
+    return "std::ifstream ";
+  }else if(incoming == "output-filestream"){
+    return "std::ofstream ";
+  }else if(incoming == "integer-array"){
+    return "int * ";
+  }else if(incoming == "variable"){
+    return "auto ";
+  }else return incoming + " ";
+}
+
 bool CreateStatement::write(std::vector<std::string> tokens, std::ofstream& outfile){
-  if(is_of_normal_type(tokens[0])){
+  if(tokens.size() == 2){
     outfile
-      << "auto "
-      << tokens[1]
-      << " = ";
-    for(int i = 2; i < tokens.size(); i++){
-      outfile
-      << tokens[i]
-      << " ";
-    }
-    outfile << ";\n";
-  }else if(tokens[0] == "integer-list"){
-    outfile
-      << "int * "
-      << tokens[1]
-      << " = ";
-    for(int i = 2; i < tokens.size(); i++){
-      outfile
-      << tokens[i]
-      << " ";
-    }
-    outfile << ";\n";
-  }else if(tokens[0] == "input-filestream"){
-    outfile
-      << "std::ifstream "
+      << _to_type(tokens[0])
       << tokens[1]
       << ";\n";
-  }else if(tokens[0] == "output-filestream"){
+  }else{
     outfile
-      << "std::ofstream "
+      << _to_type(tokens[0])
       << tokens[1]
+      << " = ";
+    for(int x = 2; x < tokens.size(); x++){
+      outfile 
+        << tokens[x]
+        << " ";
+    }
+    outfile
       << ";\n";
   }
   return true;

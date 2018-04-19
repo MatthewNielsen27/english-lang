@@ -1,0 +1,8 @@
+structure Person
+  create string name
+  create integer age
+end-structure
+
+@script
+
+create Person bill

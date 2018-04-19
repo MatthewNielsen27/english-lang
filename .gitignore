@@ -10,3 +10,4 @@ examples/*.cpp
 examples/io
 examples/function
 examples/outside
+examples/struct

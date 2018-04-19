@@ -4,6 +4,7 @@
 #include "../include/native.hpp"
 #include "../include/variables.hpp"
 #include "../include/function.hpp"
+#include "../include/data_structure.hpp"
 
 #include <vector>
 
@@ -26,7 +27,9 @@ enum CommandType{
   _append,
   _for,
   _while,
-  _return
+  _return,
+  _structure,
+  _end_structure
 };
 
 CommandType translate(std::string const& inString){
@@ -49,6 +52,8 @@ CommandType translate(std::string const& inString){
   else if(inString == "while") { val = _while;}
   else if(inString == "cpp->") {val = _inject;}
   else if(inString == "return") {val = _return;}
+  else if(inString == "structure") {val = _structure;}
+  else if(inString == "end-structure") {val = _end_structure;}
   return val;
 }
 
@@ -211,6 +216,23 @@ int translate_command_from(std::string initial_token, std::string line, std::ofs
       if(function_statement.is_valid(line)){
         std::vector<std::string> tokens = function_statement.parse(line, infile);
         function_statement.write(tokens, outfile);
+      }else{
+        status = 1;
+      }
+      break;
+    case(_structure):
+      StructureStatement structure_statement;
+      if(structure_statement.is_valid(line)){
+        std::string name = structure_statement.parse(line);
+        structure_statement.write(name, outfile);
+      }else{
+        status = 1;
+      }
+      break;
+    case(_end_structure):
+      EndStructureStatement endstructure_statement;
+      if(endstructure_statement.is_valid(line)){
+        endstructure_statement.write(outfile);
       }else{
         status = 1;
       }
