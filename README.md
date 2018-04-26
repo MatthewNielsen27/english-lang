@@ -7,7 +7,7 @@ English is an experiment to create the highest-level programming language possib
 ### Console output
 
 ```txt
-@main
+@script
 
 write "hello world" to console
 ```
@@ -15,32 +15,36 @@ write "hello world" to console
 ### Variables
 
 ```txt
-@main
+@script
 
-# Static-typed
-create integer foo equal to 4
-create integer bar equal to 0
+create integer foo equal to-> 4
+create integer bar equal to-> 0
 
-set bar to equal foo
+set bar equal to-> foo
 
-# Dynamic-typed
-create variable name equal to "matthew"
-
-put "hello, " to console
-write name to console
+put "hello, " to-> console
+write name to-> console
 
 ```
 
 ### Loops
 
 ```txt
-@main
+@script
 
-create variable name equal to "matthew"
+create variable name equal to-> "matthew"
 
 for x in name.length() interations do
   put name[x] to console
 end
+
+create integer counter equal to-> 0
+
+while counter < 10, do
+  write counter to-> console
+  set counter equal to-> counter + 1
+end
+
 ```
 
 ### Functions
@@ -52,10 +56,10 @@ function greet
   takes nothing
   returns nothing
 does
-  write "hello world" to console
+  write "hello world" to-> console
 end
 
-@main
+@script
 
 perform greet()
 ```
@@ -67,9 +71,9 @@ click [here](examples) to see more examples of .english programming
 Create hello.english source file
 
 ```txt
-@main
+@script
 
-write "hello world" to console
+write "hello world" to-> console
 ```
 
 Then compile and run in the console
