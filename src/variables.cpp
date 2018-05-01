@@ -24,60 +24,22 @@ std::vector<std::string> CreateStatement::parse(std::string line){
   line = line.substr(index + 1);
 
   if(create_type == "input-filestream" || create_type == "output-filestream"){
-    index = line.find("named");
-
-    tokens.push_back(line.substr(index + 6));
-
-  }else{
-    index = line.find("equal to");
-
-    tokens.push_back(line.substr(0, index));
-
-    line = line.substr(index + 8);
-
-    //trim any whitespace
-
-    int encapsulated = 0;
-
-    bool quoted = false;
-
-    std::string buffer = "";
-
-    for(int i = 0; line[i] != 0; i++){
-      if(line[i] == ' ' && !encapsulated && !quoted){
-        if(buffer.length() && buffer != " "){
-          tokens.push_back(buffer);
-        }
-
-        buffer = "";
-
-      }else if(line[i] == '"'){
-        buffer += line[i];
-
-        quoted = !quoted;
-
-      }else if(line[i] == '('){
-        buffer += line[i];
-
-        encapsulated++;
-
-      }else if(line[i] == ')'){
-        buffer += line[i];
-
-        encapsulated--;
-
-      }else{
-        buffer += line[i];
-      }
-
+    index = line.find(" named ");
+    if(index != std::string::npos){
+      tokens.push_back(line.substr(index + 7));
     }
 
-    if(buffer.length() && buffer != " "){
-      tokens.push_back(buffer);
+  }else{
+    index = line.find(" equal to-> ");
+    
+    tokens.push_back(line.substr(0, index));
+    if(index != std::string::npos){
+      line = line.substr(index + 12);
+
+      tokens.push_back(line);
     }
 
   }
-
   return tokens;
 }
 
@@ -89,39 +51,75 @@ bool is_of_normal_type(std::string incoming){
   }
 }
 
+std::string _to_type(std::string incoming){
+  if(incoming == "string"){
+    return "std::string ";
+  }else if(incoming == "integer"){
+    return "int ";
+  }else if(incoming == "decimal"){
+    return "float ";
+  }else if(incoming == "input-filestream"){
+    return "std::ifstream ";
+  }else if(incoming == "output-filestream"){
+    return "std::ofstream ";
+  }else if(incoming == "integer-array"){
+    return "int * ";
+  }else if(incoming == "variable"){
+    return "auto ";
+  }else return incoming + " ";
+}
+
 bool CreateStatement::write(std::vector<std::string> tokens, std::ofstream& outfile){
-  if(is_of_normal_type(tokens[0])){
+  if(tokens.size() == 2){
     outfile
-      << "auto "
-      << tokens[1]
-      << " = ";
-    for(int i = 2; i < tokens.size(); i++){
-      outfile
-      << tokens[i]
-      << " ";
-    }
-    outfile << ";\n";
-  }else if(tokens[0] == "integer-list"){
-    outfile
-      << "int * "
-      << tokens[1]
-      << " = ";
-    for(int i = 2; i < tokens.size(); i++){
-      outfile
-      << tokens[i]
-      << " ";
-    }
-    outfile << ";\n";
-  }else if(tokens[0] == "input-filestream"){
-    outfile
-      << "std::ifstream "
+      << _to_type(tokens[0])
       << tokens[1]
       << ";\n";
-  }else if(tokens[0] == "output-filestream"){
+  }else{
     outfile
-      << "std::ofstream "
+      << _to_type(tokens[0])
       << tokens[1]
+      << " = ";
+    for(int x = 2; x < tokens.size(); x++){
+      outfile 
+        << tokens[x]
+        << " ";
+    }
+    outfile
       << ";\n";
   }
+  return true;
+}
+
+bool SetStatement::is_valid(std::string line){
+  return true;
+}
+
+std::vector<std::string> SetStatement::parse(std::string line){
+  std::vector<std::string> tokens;
+
+  line = std::regex_replace(line, std::regex("^ +| +$|( ) +"), "$1");
+
+  //remove 'if' and ', then' statement
+  size_t index;
+
+  line = line.substr(4);
+
+  index = line.find(" ");
+
+  tokens.push_back(line.substr(0, index));
+
+  index = line.find(" equal to-> ");
+  tokens.push_back(line.substr(index + 12));
+
+  return tokens;
+}
+
+bool SetStatement::write(std::vector<std::string> tokens, std::ofstream& outfile){
+  outfile
+  << tokens[0]
+  << " = "
+  << tokens[1]
+  << ";\n";
   return true;
 }

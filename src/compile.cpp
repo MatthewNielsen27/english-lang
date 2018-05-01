@@ -34,6 +34,43 @@ bool is_valid_command(std::string incoming){
   return true;
 }
 
+bool is_standard_library(std::string name){
+  return false;
+}
+
+void compile_expernal(std::string name, std::ofstream& outfile){
+  std::ifstream infile;
+  std::string incoming_line;
+  int line_count = 0;
+  
+  if(is_standard_library(name)){
+    infile.open("lib/" + name);
+  }else{
+    infile.open(name);
+  }
+
+  while( !infile.eof() )
+  {
+    line_count++;
+
+    getline( infile, incoming_line );
+    incoming_line = std::regex_replace(incoming_line, std::regex("^ +| +$|( ) +"), "$1");
+    
+    std::string token = incoming_line.substr(0, incoming_line.find(' '));
+
+    if(is_valid_command(token) && token[0] != '#'){
+      if(token == "@source"){
+        compile_expernal(incoming_line.substr(incoming_line.find(' ') + 1), outfile);
+      }else{
+        translate_command_from(token, incoming_line, outfile, infile);
+      }
+    }else{
+      std::cout << "@Plain_English: Error: Unknown command on line " << line_count << " of "<< name <<"\n";
+    }
+  }
+  infile.close();
+}
+
 int main(const int argc, const char *argv[]){
   
   //////////////////////////////
@@ -108,8 +145,10 @@ int main(const int argc, const char *argv[]){
         main_reached = true;
       }else if(token == "@routines"){
         routines_reached = true;
+      }else if(token == "@source"){
+        compile_expernal(incoming_line.substr(incoming_line.find(' ') + 1), outfile);
       }else{
-        translate_command_from(token, incoming_line, outfile);
+        translate_command_from(token, incoming_line, outfile, input_file);
       }
     }else{
       std::cout << "@Plain_English: Error: Unknown command on line " << line_count << "\n";

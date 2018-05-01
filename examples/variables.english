@@ -1,9 +1,7 @@
 @script
 
-create integer foo equal to 4
+create integer foo
 
-create variable name equal to "matthew nielsen"
+create variable name equal to-> "matthew nielsen"
 
-write foo to console
-
-write name to console
+write " to-> " to-> console

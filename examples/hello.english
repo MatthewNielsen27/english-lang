@@ -1,5 +1,3 @@
 @script
 
-write "hello world" to console
-put "hello " to console
-write "world" to console
+write 1 + 2 to-> console

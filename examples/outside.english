@@ -1,0 +1,9 @@
+@source examples/functions.english
+
+@script
+
+create integer foo equal to-> factorial(4)
+
+write factorial(4) to-> console
+
+perform greet("matthew")

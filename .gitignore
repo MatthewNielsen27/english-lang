@@ -1,9 +1,13 @@
 compile
 *.txt
 examples/conditional
-examples/for_loop
+examples/loop
+examples/broken
 examples/func
 examples/hello
 examples/variables
 examples/*.cpp
 examples/io
+examples/function
+examples/outside
+examples/struct
